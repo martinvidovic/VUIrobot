@@ -40,10 +40,10 @@ public class StartScene {
                 .map(File::getName)
                 .collect(Collectors.toList());
         this.worlds.setItems(new ObservableListWrapper<>(worlds));
-        this.worlds.setValue(worlds.get(0));
+        this.worlds.setValue(worlds.get(worlds.size()-1));
 
         agents.getItems().addAll(AGENTS_NAMES);
-        agents.setValue(AGENTS_NAMES[0]);
+        agents.setValue(AGENTS_NAMES[4]);
 
         timeToLive.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(100, 100_000, 1_000, 100));
     }
