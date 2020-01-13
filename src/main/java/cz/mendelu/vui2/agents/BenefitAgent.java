@@ -228,7 +228,7 @@ public class BenefitAgent extends AbstractAgent {
 
     }
 
-    //function called when wall is front of robot, or robot already visited this place
+    //  function called when wall is front of robot, or robot already visited this place
     private Action rotateRobot() {
 //        if (!rotatingStarted && rotatingCount == 0) { startRotating(); }
         if (!isRotating() && rotatingCount == 0) {
@@ -271,7 +271,7 @@ public class BenefitAgent extends AbstractAgent {
         if (leftLocationData.getNumberOfVisits() > rightLocationData.getNumberOfVisits() && noWall){
             return Action.TURN_RIGHT;
         } else if (leftLocationData.getNumberOfVisits() <= rightLocationData.getNumberOfVisits() && noWall){
-            return randomTurn();
+            return Action.TURN_LEFT;
         }
 
         //if one side is wall, turn another one

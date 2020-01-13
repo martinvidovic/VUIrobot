@@ -54,7 +54,7 @@ public class AStar {
         this.startLocation = startLocation;
         this.endLocation = endLocation;
 
-        //firstly, mapOfWorld which contains LocationData, must be re-map to AStarLocationData which contains f,g,h
+        // firstly, mapOfWorld which contains LocationData, must be re-maped to AStarLocationData which contains f,g,h
         setAStarLocationData(mapOfWorld);
         /** put the startNode on the openList */
         this.openList.push(this.aStarMapOfWorld.get(this.startLocation).getCoor());
@@ -164,37 +164,34 @@ public class AStar {
          * PART 7
          *  if child is in the closedList
          */
-        if(!closedSet.contains(neighbourCoor)) {
-            Integer gCost = aStarMapOfWorld.get(this.current).getgCost() + 1;
-
-            /**
-             * PART 8
-             * Create the f, g, and h values
-             */
-            AStarLocationData aStarLocationData = aStarMapOfWorld.get(neighbourCoor);
-            aStarLocationData.setgCost(gCost);
-            aStarLocationData.sethCost(calculateHeuresticHCost(neighbourCoor));
-            aStarLocationData.setfCost(aStarLocationData.getgCost() + aStarLocationData.gethCost());
-            aStarLocationData.setParentCoor(this.current);
-            /**
-             * PART 9
-             * Child is already in openList
-             */
-            if (openList.contains(neighbourCoor)) {
-                if (gCost < aStarLocationData.getgCost()) {
-                    aStarLocationData.setgCost(gCost);
-                    aStarLocationData.setfCost(aStarLocationData.getgCost() + aStarLocationData.gethCost());
-                    aStarMapOfWorld.put(neighbourCoor, aStarLocationData);
-                }
-            } else {
-                openList.push(neighbourCoor);
-            }
-            /**
-             * PART 10
-             *  Add the child to the openList
-             */
-            aStarMapOfWorld.put(neighbourCoor, aStarLocationData);
+        if(closedSet.contains(neighbourCoor)) {
+            return;
         }
+        /**
+         * PART 8
+         * Create the f, g, and h values
+         */
+        Integer gCost = aStarMapOfWorld.get(this.current).getgCost() + 1;
+        AStarLocationData aStarLocationData = aStarMapOfWorld.get(neighbourCoor);
+        aStarLocationData.setgCost(gCost);
+        aStarLocationData.sethCost(calculateHeuresticHCost(neighbourCoor));
+        aStarLocationData.setfCost(aStarLocationData.getgCost() + aStarLocationData.gethCost());
+        aStarLocationData.setParentCoor(this.current);
+        /**
+         * PART 9
+         * Child is already in openList
+         */
+        if (openList.contains(neighbourCoor)) {
+            if (gCost > aStarLocationData.getgCost()) {
+                return;
+            }
+        }
+        /**
+         * PART 10
+         *  Add the child to the openList
+         */
+        openList.push(neighbourCoor);
+
     }
 
     // function returns the whole path by getting parentCoor from the last location (currentCoor)
@@ -223,9 +220,8 @@ public class AStar {
     }
     // Compute "h" (heuristic) length from between two coords.
     public int calculateHeuresticHCost(Coor currentLocation) {
-        int x = currentLocation.x - this.endLocation.x;
-        int y = currentLocation.y - this.endLocation.y;
-        return (int) Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+        int absV = abs(currentLocation.x - endLocation.x) + abs(currentLocation.y - endLocation.y);
+        return absV;
     }
 
     public HashMap<Coor, AStarLocationData> getaStarMapOfWorld() {

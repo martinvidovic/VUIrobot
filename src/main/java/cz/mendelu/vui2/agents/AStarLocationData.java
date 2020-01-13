@@ -33,10 +33,6 @@ public class AStarLocationData {
         this.parentCoor = parentCoor;
     }
 
-    public void setCoor(Coor coor) {
-        this.coor = coor;
-    }
-
     public void setWall(boolean wall) {
         this.wall = wall;
     }
@@ -61,51 +57,23 @@ public class AStarLocationData {
         fCost = value;
     }
 
-    public boolean isDiscovered() {
-        return discovered;
-    }
-
     public void setDock(boolean dock) {
         this.dock = dock;
-    }
-
-    public Integer getNumberOfVisits() {
-        return numberOfVisits;
     }
 
     public ArrayList<AStarLocationData> getNeighbours() {
         return neighbours;
     }
 
-    public boolean isDock() {
-        return dock;
-    }
-
     public boolean isWall() {
         return wall;
-    }
-
-    public void setDiscovered(boolean discovered) {
-        this.discovered = discovered;
     }
 
     public void setNeighbours(ArrayList<AStarLocationData> neighbours) {
         this.neighbours = neighbours;
     }
 
-    public void increaseNumberOfVisits() {
-        this.numberOfVisits += 1;
-    }
-
     public void setNumberOfVisits(Integer number) {
         this.numberOfVisits = number;
-    }
-    public String getPrintableNeigbours() {
-        String result = "";
-        for (int i = 0; i < this.neighbours.size(); i++) {
-            Coor coor = this.neighbours.get(i).coor;
-            result += "["+ coor.x + "|" + coor.y + "] ";
-        }
-        return result;
     }
 }
